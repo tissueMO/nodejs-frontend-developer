@@ -19,15 +19,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set variables
+        run: |
+          IMAGE_ID=${{ env.IMAGE_REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
+          IMAGE_ID=${IMAGE_ID,,}
+          echo "::set-env name=IMAGE_ID::$IMAGE_ID"
+          echo "::set-env name=IMAGE_VERSION::latest"
+
       - name: Login registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.IMAGE_REGISTRY }} -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login $IMAGE_REGISTRY -u ${{ github.actor }} --password-stdin
 
       - name: Build image
-        run: docker build -t ${{ env.IMAGE_NAME }} --target prod .
+        run: |
+          docker pull $IMAGE_ID:$IMAGE_VERSION || true
+          docker build \
+            --cache-from $IMAGE_ID:$IMAGE_VERSION \
+            --target prod \
+            -t $IMAGE_NAME \
+            .
 
       - name: Push image
         run: |
-          IMAGE_ID=${{ env.IMAGE_REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
-          IMAGE_VERSION=latest
-          docker tag ${{ env.IMAGE_NAME }} $IMAGE_ID:$IMAGE_VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:$IMAGE_VERSION
           docker push $IMAGE_ID:$IMAGE_VERSION
