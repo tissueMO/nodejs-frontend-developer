@@ -1,0 +1,33 @@
+name: GitHub Packages
+
+# 手動トリガー
+on:
+  workflow_dispatch:
+
+# 環境変数
+env:
+  # Dockerイメージ名
+  IMAGE_NAME: site
+  # Dockerレジストリ名
+  IMAGE_REGISTRY: docker.pkg.github.com
+
+jobs:
+  build_and_push:
+    # DockerイメージをビルドしてPackagesにプッシュ
+    name: Build static contents
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.IMAGE_REGISTRY }} -u ${{ github.actor }} --password-stdin
+
+      - name: Build image
+        run: docker build -t ${{ env.IMAGE_NAME }} --target prod .
+
+      - name: Push image
+        run: |
+          IMAGE_ID=${{ env.IMAGE_REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
+          IMAGE_VERSION=latest
+          docker tag ${{ env.IMAGE_NAME }} $IMAGE_ID:$IMAGE_VERSION
+          docker push $IMAGE_ID:$IMAGE_VERSION
