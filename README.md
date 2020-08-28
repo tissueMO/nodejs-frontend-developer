@@ -108,7 +108,7 @@ Node.jsをDockerコンテナで動かしてフロントエンド開発できる�
 - GitHub Actionsページの `GitHub Pages` から Run workflow して手動でワークフローを起動します。  
 - ワークフローの処理が完了すると、 `gh-pages` ブランチが作成されていることが確認できます。
 - GitHubリポジトリーのSettingsからGitHub PagesのSourceブランチに `gh-pages` を指定します。
-- >Your site is pulished at ...
+- >Your site is published at ...
   - ... に続くURLに、Webサイトがデプロイされていることが確認できます。
 
 
