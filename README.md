@@ -64,7 +64,7 @@ Node.jsをDockerコンテナで動かしてフロントエンド開発できる�
 以下のコマンドを実行すると、必要なパッケージが一式 `node_module` ディレクトリーにインストールされます。  
 `package.json` を更新した際は毎回実行する必要があります。  
 
-`$ docker run --rm -p 3000:3000 -it -v $(pwd):/src nodejs-frontend-developer:dev install`
+`$ docker run --rm -v $(pwd):/src nodejs-frontend-developer:dev install`
 
 #### 開発用Webサーバー起動
 
@@ -77,14 +77,14 @@ Node.jsをDockerコンテナで動かしてフロントエンド開発できる�
 
 以下のコマンドを実行すると、Minifyされた状態のHTML/CSS/JavaScriptをソースマップ付きで `dist` ディレクトリーにビルドします。
 
-`$ docker run --rm -p 3000:3000 -it -v $(pwd):/src nodejs-frontend-developer:dev dev`
+`$ docker run --rm -v $(pwd):/src nodejs-frontend-developer:dev dev`
 
 
 #### 本番用ビルド
 
 以下のコマンドを実行すると、Minifyされた状態のHTML/CSS/JavaScriptをソースマップ無しで `dist` ディレクトリーにビルドします。
 
-`$ docker run --rm -p 3000:3000 -it -v $(pwd):/src nodejs-frontend-developer:dev build`
+`$ docker run --rm -v $(pwd):/src nodejs-frontend-developer:dev build`
 
 
 ### 本番向け
