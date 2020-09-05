@@ -42,19 +42,6 @@ Node.jsをDockerコンテナで動かしてフロントエンド開発できる�
 `$ docker build -t nodejs-frontend-developer:prod --target prod .`
 
 
-### Dockerコンテナ起動
-
-前項のDockerイメージビルドが完了している環境で実行する前提とします。  
-
-#### 開発向け
-
-`$ docker run --rm -p 3000:3000 -it -v $(pwd):/src nodejs-frontend-developer:dev`
-
-#### 本番向け
-
-`$ docker run --rm -p 8080:80 nodejs-frontend-developer:prod`
-
-
 ## Usage
 
 ### 開発向け
