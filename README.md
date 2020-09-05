@@ -48,7 +48,7 @@ Node.jsをDockerコンテナで動かしてフロントエンド開発できる�
 
 #### 開発向け
 
-`$ docker run --rm -p 3000:3000 -it -v $(pwd):/src nodejs-frontend-developer:prod`
+`$ docker run --rm -p 3000:3000 -it -v $(pwd):/src nodejs-frontend-developer:dev`
 
 #### 本番向け
 
