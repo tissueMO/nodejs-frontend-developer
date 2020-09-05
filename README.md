@@ -42,25 +42,21 @@ Node.jsをDockerコンテナで動かしてフロントエンド開発できる�
 `$ docker build -t nodejs-frontend-developer:prod --target prod .`
 
 
-### パッケージ管理システム初期化
-
-上記手順でDockerイメージのビルドが完了している前提とします。
-
-#### 開発向け
-
-`$ docker build --rm -v $(pwd):/src nodejs-frontend-developer:dev init`
-
-
 ## Usage
 
 ### 開発向け
 
-#### Node.js パッケージインストール
+#### Node.js パッケージインストール (初回のみ)
 
 以下のコマンドを実行すると、必要なパッケージが一式 `node_module` ディレクトリーにインストールされます。  
 `package.json` を更新した際は毎回実行する必要があります。  
 
-`$ docker run --rm -v $(pwd):/src nodejs-frontend-developer:dev install`
+`$ docker run --rm -v $(pwd):/src nodejs-frontend-developer:dev install`  
+
+新たにNode.jsパッケージを追加する場合は以下コマンドを実行します。  
+
+`$ docker run --rm -v $(pwd):/src nodejs-frontend-developer:dev add {PACKAGE_NAME}`  
+
 
 #### 開発用Webサーバー起動
 
